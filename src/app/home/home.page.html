@@ -1,20 +1,54 @@
-<ion-header [translucent]="true">
+<ion-header collapse="fade">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="edit" (click)="toggleEditMode()">{{ editing ? 'Done' : 'Edit' }}</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-searchbar></ion-searchbar>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-row *ngIf="!editing">
+    <!-- <ion-col size="6" *ngFor="let item of items; let i = index">
+      <ion-card>
+        <ion-card-content>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-fab>
+                <ion-fab-button [color]="fabColors[i]" size="small">
+                  <ion-icon [name]="itemIcons[i]"></ion-icon>
+                </ion-fab-button>
+              </ion-fab>
+              <p>{{ item }}</p>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col> -->
+    <ion-col class="display" *ngFor="let selectedItem of selectedItems">
+      <ion-list [inset]="true">
+        <ion-item>
+          <ion-icon [name]="selectedItem.icon" [color]="selectedItem.color" slot="start"></ion-icon>
+          {{ selectedItem.name }}
+        </ion-item>
+      </ion-list>
+    </ion-col>
+    
+  </ion-row>
+
+  <ion-list [inset]="true" *ngIf="editing">
+    <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
+    <ion-item class="items" *ngFor="let item of items; let i = index">
+      <ion-checkbox slot="start" size="small"></ion-checkbox>
+      <ion-fab class="fab" slot="start">
+        <ion-fab-button [color]="item.color" size="small">
+          <ion-icon [name]="item.icon"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <span class="item-name">{{ item.name }}</span>
+        <ion-reorder slot="end"></ion-reorder>
+    </ion-item>
+  </ion-reorder-group>
+  </ion-list>
 </ion-content>
