@@ -8,11 +8,25 @@
   </ion-header>
 
   <ion-content [fullscreen]="true">
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar show-cancel-button="focus" placeholder="Search"></ion-searchbar>
 
     <ion-row *ngIf="!editing">
 
       <ion-col class="display ion-no-padding" *ngFor="let selectedItem of selectedItems">
+        <ion-list [inset]="true" class="selecteditemlist">
+          <ion-item class="ion-no-padding">
+            <div class="item-container">
+              <div [ngStyle]="{ 'background-color': selectedItem.color }">
+                <ion-icon [name]="selectedItem.icon" class="icon"></ion-icon>
+              </div>
+              <div class="badge">0</div>
+              <div class="name" color="medium">{{ selectedItem.name }}</div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <!-- <ion-col class="display ion-no-padding" *ngFor="let selectedItem of selectedItems">
         <ion-list [inset]="true" class="selecteditemlist">
           <ion-item class="ion-no-padding">
             <div class="item-container">
@@ -26,9 +40,28 @@
             </div>
           </ion-item>
         </ion-list>
-      </ion-col>
+      </ion-col> -->
 
     </ion-row>
+    <div class="ion-padding" *ngIf="!editing">
+      <h2 class="mylists">My Lists</h2>
+      <ion-list>
+        <ion-item-sliding>
+          <ion-item-options side="start">
+            <ion-item-option color="success"><ion-icon name="bookmark"></ion-icon></ion-item-option>
+          </ion-item-options>
+
+          <ion-item>
+
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option color="medium"><ion-icon name="information-circle"></ion-icon></ion-item-option>
+            <ion-item-option color="danger"><ion-icon name="trash"></ion-icon></ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
 
     <ion-list [inset]="true" *ngIf="editing">
       <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">
@@ -70,8 +103,8 @@
 
           <div *ngIf="activeSegment === 'newlist'">
             <ion-list class="ion-text-center ion-margin-top">
-              <div class="circle-bg">
-                <img src="../../assets/list_FILL0_wght400_GRAD0_opsz24.svg" alt="" height="70px" width="70px">
+              <div class="circle-bg" [style.background-color]="selectedColor">
+                <ion-icon [name]="selectedIcon" class="listicon"></ion-icon>
               </div>
               <ion-item lines="none" class="ion-margin-top custom-input">
                 <ion-input placeholder="List Name"></ion-input>
@@ -79,23 +112,59 @@
             </ion-list>
             <ion-list class="ion-margin-top flex-container">
               <div class="flex-item">
-                <img src="../../assets/list_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                <div class="image-wrapper">
+                  <ion-icon [name]="selectedListTypeIcon" class="icon"></ion-icon>
+                </div>
               </div>
               <div class="flex-item">
                 <p>List Type</p>
               </div>
+              <div class="ionselect">
+                <ion-list>
+                  <ion-item>
+                    <ion-select aria-label="Fruit" interface="popover" placeholder="Select fruit"
+                      [(ngModel)]="selectedListType" (ionChange)="updateListType()">
+                      <ion-select-option value="standard">Standard</ion-select-option>
+                      <ion-select-option value="shopping">Shopping</ion-select-option>
+                      <ion-select-option value="smartlist">Smart List</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+              </div>
             </ion-list>
             <ion-list class="ion-margin-top color-list">
               <div *ngFor="let chunk of colorChunks" class="color-row">
-                <div class="color-circle" *ngFor="let color of chunk" [style.background-color]="color"></div>
+                <div class="color-circle" *ngFor="let color of chunk" [style.background-color]="color"
+                  (click)="selectColor(color)"></div>
               </div>
             </ion-list>
-            <ion-list>
-              
+            <ion-list class="ion-margin-top">
+              <ion-col>
+                <ion-list lines="none">
+                  <ion-item>
+                    <div class="icon-row">
+                      <div *ngFor="let listIcon of listIcons" class="icon-container" (click)="selectIcon(listIcon)">
+                        <ion-icon [name]="listIcon"></ion-icon>
+                      </div>
+                    </div>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
             </ion-list>
+
           </div>
-          <div *ngIf="activeSegment === 'templates'">
-            <p>This is the content for the "Templates" segment.</p>
+          <div *ngIf="activeSegment === 'templates'" class="activeSegment">
+            <div style="font-size: 4rem; color: gray;">
+              <ion-icon name="copy-outline"></ion-icon>
+            </div>
+            <div>
+              <h4>No Templates</h4>
+            </div>
+            <div style="color: gray">
+              <p>You can create templates from lists by tapping
+                 <span><ion-icon name="ellipsis-horizontal-circle"></ion-icon></span>
+                  insdie a list and choosing Save as Template.</p>
+            </div>
           </div>
 
         </ion-content>

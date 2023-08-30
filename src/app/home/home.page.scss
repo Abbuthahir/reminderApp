@@ -41,7 +41,7 @@ ion-checkbox {
 
 .name {
   font-size: 14px;
-  margin-top: 50px;
+  margin-top: 7px;
 }
 
 .addlist {
@@ -104,13 +104,28 @@ ion-checkbox {
 }
 
 .flex-item {
-  margin-right: 16px;
-  margin-left: 16px;
+  margin-right: 10px;
+  margin-left: 5px;
 }
 
 .flex-item:last-child {
   margin-right: 0;
   margin-left: 0;
+}
+.image-wrapper {
+  width: 30px; 
+  height: 30px; 
+  border-radius: 8px;
+  background-color: var(--ion-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.image-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .color-list {
@@ -131,6 +146,46 @@ ion-checkbox {
   border-radius: 50%;
   margin: 0 8px 12px;
 }
+.ionselect{
+  margin-left: 120px;
+}
+
+.icon-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px; 
+  height: 40px;
+  background-color: rgb(221, 213, 213);
+  border-radius: 50%; 
+  margin-right: 10px; 
+  margin-bottom: 10px; 
+}
+.icon-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.listicon{
+  font-size: 50px;
+}
+.mylists{
+  font-weight: bold;
+  font-family: system-ui;
+}
+
+.activeSegment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  text-align: center;
+}
+
+.activeSegment > div {
+  margin-bottom: 0px; 
+}
+
 
 
 
