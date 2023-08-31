@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { ItemReorderEventDetail } from '@ionic/angular';
+import { ItemReorderEventDetail, ModalController } from '@ionic/angular';
+import { MyListService } from '../my-list.service';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 
 @Component({
@@ -8,6 +11,8 @@ import { ItemReorderEventDetail } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
+
 
   items = [
     { name: 'Today', icon: 'calendar-number-outline', color: 'primary', selected: true },
@@ -23,6 +28,9 @@ export class HomePage {
   selectedIcon: string = 'list';
   selectedListType: string = 'standard';
   selectedListTypeIcon: string = 'list';
+  inputValue: string = '';
+  reminderlists: any[] = [];
+  dummylist: any[] = [];
   colors: string[] = [
     'red', 'orange', '#FFC300', '#32CD32', '#89CFF0', '#1E90FF',
     '#7C37CC', '#FF5733', '#B65FCF', '#BF946F', '#777B7E', '#E4C7B7'
@@ -33,7 +41,26 @@ export class HomePage {
     'thermometer', 'book', 'card', 'barbell', 'restaurant', 'wine', 'git-network-outline', 'home', 'business',
     'tv-outline', 'musical-notes', 'game-controller', 'headset', 'leaf',];
 
-  constructor() {
+  constructor(private modalController: ModalController, private mylistservice: MyListService) {
+
+    this.mylistservice.getProgrammingLanguages().subscribe(
+      (res: any) => {
+        this.dummylist = this.dummylist.concat(res.data);
+        this.reminderlists = this.reminderlists.concat(this.dummylist);
+        console.log('response', this.reminderlists);
+
+      }
+      )
+
+    // const getMyList: any = localStorage.getItem('myLists');
+    // const data = JSON.parse(getMyList);
+    // if (data) {
+    //   data.forEach((get: any) => {
+    //     this.reminderlists.push(get)
+    //   });
+    // }
+    
+
     this.colorChunks = this.chunkArray(this.colors, 7);
   }
   selectColor(color: string) {
@@ -56,7 +83,6 @@ export class HomePage {
 
   toggleEditMode() {
     this.editing = !this.editing;
-
     if (!this.editing) {
       this.selectedItems = this.items.filter(item => item.selected)
     } else {
@@ -83,4 +109,21 @@ export class HomePage {
         break;
     }
   }
+ async storeDataInLocalStorage() {
+    const data = {
+      selectedColor: this.selectedColor,
+      selectedIcon: this.selectedIcon,
+      inputValue: this.inputValue,
+    };
+
+    // let myList = JSON.parse(localStorage.getItem('myLists') || '[]');
+    // myList.push(data);
+    // localStorage.setItem('myLists', JSON.stringify(myList));
+    // console.log(myList);
+    this.mylistservice.createProduct(data).subscribe( resp => console.log(resp)
+    )
+    await this.modalController.dismiss();
+    
+  }
+
 }
