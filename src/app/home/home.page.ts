@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { ItemReorderEventDetail, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { IonRouterOutlet, ItemReorderEventDetail, ModalController } from '@ionic/angular';
 import { MyListService } from '../my-list.service';
-import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { NewReminderPage } from '../new-reminder/new-reminder.page';
 
 
 @Component({
@@ -10,7 +9,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
 
 
@@ -41,7 +40,7 @@ export class HomePage {
     'thermometer', 'book', 'card', 'barbell', 'restaurant', 'wine', 'git-network-outline', 'home', 'business',
     'tv-outline', 'musical-notes', 'game-controller', 'headset', 'leaf',];
 
-  constructor(private modalController: ModalController, private mylistservice: MyListService) {
+  constructor(private modalController: ModalController, private mylistservice: MyListService, private routerOutlet: IonRouterOutlet) {
 
     this.mylistservice.getProgrammingLanguages().subscribe(
       (res: any) => {
@@ -50,16 +49,16 @@ export class HomePage {
         console.log('response', this.reminderlists);
 
       }
-      )
+    )
 
-    // const getMyList: any = localStorage.getItem('myLists');
-    // const data = JSON.parse(getMyList);
-    // if (data) {
-    //   data.forEach((get: any) => {
-    //     this.reminderlists.push(get)
-    //   });
-    // }
-    
+    const getMyList: any = localStorage.getItem('myLists');
+    const data = JSON.parse(getMyList);
+    if (data) {
+      data.forEach((get: any) => {
+        this.reminderlists.push(get)
+      });
+    }
+
 
     this.colorChunks = this.chunkArray(this.colors, 7);
   }
@@ -109,21 +108,50 @@ export class HomePage {
         break;
     }
   }
- async storeDataInLocalStorage() {
+  async storeDataInLocalStorage() {
     const data = {
       selectedColor: this.selectedColor,
       selectedIcon: this.selectedIcon,
       inputValue: this.inputValue,
     };
 
-    // let myList = JSON.parse(localStorage.getItem('myLists') || '[]');
-    // myList.push(data);
-    // localStorage.setItem('myLists', JSON.stringify(myList));
-    // console.log(myList);
-    this.mylistservice.createProduct(data).subscribe( resp => console.log(resp)
+    let myList = JSON.parse(localStorage.getItem('myLists') || '[]');
+    myList.push(data);
+    localStorage.setItem('myLists', JSON.stringify(myList));
+    console.log(myList);
+    this.mylistservice.createProduct(data).subscribe(resp => console.log(resp)
     )
     await this.modalController.dismiss();
-    
+
   }
 
+  async toRemoveList(inputValue: any) {
+    await this.mylistservice.removeProduct(inputValue).subscribe(res => console.log(res));
+
+  }
+  async newListmodal() {
+    const modal = await this.modalController.create({
+      component: NewReminderPage,
+      presentingElement: this.routerOutlet.nativeEl
+
+    });
+    await modal.present();
+  }
+  // async openEmojiPicker() {
+  //   const modal = await this.modalController.create({
+  //     component: EmojiPickerModalPage,
+  //   });
+
+  //   await modal.present();
+
+  //   const { data } = await modal.onWillDismiss();
+  //   if (data && data.selectedEmoji) {
+  //     this.selectedIcon = data.selectedEmoji;
+  //     console.log('emoji', data);
+
+  //   }
+  // }
+  ngOnInit(): void {
+    
+  }
 }

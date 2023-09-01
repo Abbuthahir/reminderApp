@@ -1,0 +1,91 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding ">
+    <ion-list class="ion-margin-top details">
+      <ion-item>
+        <div class="image-wrapper">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </div>
+        <ion-label>Date</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <div class="image-wrapper">
+          <ion-icon name="time-outline"></ion-icon>
+        </div>
+        <ion-label>Time</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="ion-margin-top details">
+      <ion-item lines="none" button>
+        <div>
+          <ion-icon name="pricetag-outline"></ion-icon>
+        </div>
+        <div>
+          <ion-label>Tags</ion-label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="ion-margin-top details">
+      <ion-item>
+        <div class="image-wrapper">
+          <ion-icon name="navigate"></ion-icon>
+        </div>
+        <ion-label>Location</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="ion-margin-top details">
+      <ion-item>
+        <div class="image-wrapper">
+          <ion-icon name="chatbubble"></ion-icon>
+        </div>
+        <ion-label>When Messaging</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="ion-margin-top details">
+      <ion-item>
+        <div class="image-wrapper">
+          <ion-icon name="flag"></ion-icon>
+        </div>
+        <ion-label>Flag</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="ion-margin-top details">
+      <ion-item>
+        <div>
+         <ion-label>Priority</ion-label>
+        </div>
+        <div class="ionselect">
+          <ion-list>
+            <ion-item>
+              <ion-select aria-label="Fruit" interface="popover" placeholder="None"
+                >
+                <ion-select-option value="standard">Standard</ion-select-option>
+                <ion-select-option value="shopping">Shopping</ion-select-option>
+                <ion-select-option value="smartlist">Smart List</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+       
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,28 @@
+<div class="ion-page" #page>
+  <ion-header collapse="fade">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="closeModal()">Cancel</ion-button>
+      </ion-buttons>
+      <ion-title>New Reminder</ion-title>
+      <ion-buttons slot="end">
+        <ion-button>Add</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list class="addingReminder">
+      <ion-item>
+        <ion-input placeholder="Title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea placeholder="Notes"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-list class="ion-margin-top details" (click)="detail()">
+      <ion-item  button>
+        Details
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</div>

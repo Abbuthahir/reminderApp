@@ -18,4 +18,7 @@ export class MyListService {
 
     return this.http.post('http://localhost:3000/programming-languages', data)
   }
+  removeProduct(inputValue: any){
+    return this.http.delete(`http://localhost:3001/programming-languages/${inputValue}`)
+  }
 }

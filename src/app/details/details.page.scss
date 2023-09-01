@@ -1,0 +1,23 @@
+.image-wrapper {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 8px;
+    background-color: var(--ion-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  .details{
+    border-radius: 8px;
+  }
+  ion-label{
+    margin-left: 15px;
+    font-size: 20px;
+  }
+  .ionselect{
+    margin-left: 200px;
+  }
+  ion-icon{
+    color: white;
+  }
