@@ -1,0 +1,50 @@
+<ion-header collapse="fade">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)=" dismissModal()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)=" dismissModal()">Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list [inset]="true">
+    <ion-item class="reminderName">
+      {{reminderName}}
+    </ion-item>
+  </ion-list>
+
+  <form [formGroup]="reminderForm">
+    <ion-list [inset]="true">
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header">
+            <ion-icon name="calendar-outline" class="date-wrapper" size="small"></ion-icon>
+            <ion-label class="custom-label">Date</ion-label>
+            <ion-toggle datetime="datetime" slot="end"></ion-toggle>
+            <ion-icon class="ion-accordion-toggle-icon ios hydrated" size="small"></ion-icon>
+          </ion-item>
+          <div class=" custom-date ion-padding" slot="content" expand="full">
+            <ion-datetime id="datetime" presentation="date" [max]="maxDate" formControlName="date"></ion-datetime>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="second">
+          <ion-item slot="header">
+            <ion-icon name="time-outline" class="time-wrapper" size="small"></ion-icon>
+            <ion-label class="custom-label">Time</ion-label>
+            <ion-toggle datetime="time" slot="end"></ion-toggle>
+            <ion-icon class="ion-accordion-toggle-icon ios hydrated" size="small"></ion-icon>
+          </ion-item>
+          <div class="custom-time ion-padding" slot="content">
+            <ion-datetime class="datetime-time" id="time" presentation="time" hourCycle="h12"
+              formControlName="time"></ion-datetime>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-list>
+
+  </form>
+</ion-content>

@@ -1,0 +1,50 @@
+.date-wrapper {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 8px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  .time-wrapper {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 8px;
+    background-color: var(--ion-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  .details{
+    border-radius: 8px;
+  }
+  ion-label{
+    margin-left: 15px;
+    font-size: 20px;
+  }
+  .ionselect{
+    margin-left: 200px;
+  }
+  ion-icon{
+    color: white;
+  }
+  .custom-time{
+    background-color: white;
+  
+  }
+  .custom-date{
+    background-color: white;
+    // padding-left: 0px;
+    // padding-right:0px;
+  }
+  .ion-accordion-toggle-icon{
+    width: 0px;
+  }
+  .reminderName{
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  

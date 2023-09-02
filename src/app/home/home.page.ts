@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonRouterOutlet, ItemReorderEventDetail, ModalController } from '@ionic/angular';
 import { MyListService } from '../my-list.service';
 import { NewReminderPage } from '../new-reminder/new-reminder.page';
+import { LocalNotifications, ScheduleOptions } from '@capacitor/local-notifications';
 
 
 @Component({
@@ -40,7 +42,8 @@ export class HomePage implements OnInit {
     'thermometer', 'book', 'card', 'barbell', 'restaurant', 'wine', 'git-network-outline', 'home', 'business',
     'tv-outline', 'musical-notes', 'game-controller', 'headset', 'leaf',];
 
-  constructor(private modalController: ModalController, private mylistservice: MyListService, private routerOutlet: IonRouterOutlet) {
+  constructor(private modalController: ModalController, private router: Router,
+     private mylistservice: MyListService, private routerOutlet: IonRouterOutlet) {
 
     this.mylistservice.getProgrammingLanguages().subscribe(
       (res: any) => {
@@ -151,7 +154,32 @@ export class HomePage implements OnInit {
 
   //   }
   // }
+
+  goReminderDetails(data: any) {
+    localStorage.setItem('reminderdetails', JSON.stringify(data));
+    console.log('reminderData', data);
+    this.router.navigate(['/reminderdetails'])
+  }
+
+  async scheduleNotification(){
+    let options: ScheduleOptions = {
+      notifications:[{
+        id: 111,
+        title: "Reminder Notification",
+        body: "My Reminder app"
+      }]
+    }
+    try{
+      LocalNotifications.schedule(options);
+      console.log('localnotification',options);
+      
+    }
+    catch (ex){
+      alert(JSON.stringify(ex));
+    }
+  }
+
   ngOnInit(): void {
-    
+
   }
 }

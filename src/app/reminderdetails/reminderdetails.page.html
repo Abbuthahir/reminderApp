@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button>List</ion-back-button>
+    </ion-buttons>
+    <ion-title>reminderdetails</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense" *ngFor="let data of reminderArr">
+    <ion-toolbar>
+      <ion-title size="large" [style.color]="data.selectedColor">{{data.inputValue}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list *ngIf="showList" [inset]="true">
+    <ion-item>
+      <ion-checkbox slot="start"></ion-checkbox>
+      <!-- <ion-label> -->
+      <ion-input [(ngModel)]="note" (ngModelChange)="toggleIcon()"></ion-input>
+      <div  *ngFor="let datet of datetime">
+        <ion-label>
+          <p>{{datet.date | date: 'dd/MM/yyyy HH:mm a'}}</p>
+        </ion-label>
+      </div>
+      <ion-buttons slot="end" (click)="goremindermodal()">
+        <ion-icon slot="end" name="information-circle-outline" color="primary"></ion-icon>
+      </ion-buttons>
+    <!-- </ion-label> -->
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-icon name="add-circle" color="primary" size="large" (click)="toggleList()"></ion-icon>
+      <ion-button (click)="toggleList()">New Reminder</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

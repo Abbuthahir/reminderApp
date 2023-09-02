@@ -19,6 +19,14 @@ const routes: Routes = [
     path: 'details',
     loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
   },
+  {
+    path: 'reminderdetails',
+    loadChildren: () => import('./reminderdetails/reminderdetails.module').then( m => m.ReminderdetailsPageModule)
+  },
+  {
+    path: 'reminder-modal',
+    loadChildren: () => import('./reminder-modal/reminder-modal.module').then( m => m.ReminderModalPageModule)
+  },
 ];
 
 @NgModule({
